@@ -11,10 +11,10 @@ public class Main {
         if(receptor.convertOriginalTrama()) {
             if(receptor.checkErrors()) {
                 print("> No errors detected in trama ...");
-                receptor.printTramas();
             } else {
                 print("> Error detected in trama, correction will be applied ...");
             }
+            receptor.printTramas();
         } else {
             receptor.printError();
             System.exit(1);
