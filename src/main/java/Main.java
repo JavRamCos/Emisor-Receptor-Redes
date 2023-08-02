@@ -4,14 +4,19 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            print("No trama was provided ...");
+            print("> No trama was provided ...");
             System.exit(1);
         }
         Receptor receptor = new Receptor(args[0], 32);
         if(receptor.convertOriginalTrama()) {
-            print("Success");
+            if(receptor.checkErrors()) {
+                print("> No errors detected in trama ...");
+                receptor.printTramas();
+            } else {
+                print("> Error detected in trama, correction will be applied ...");
+            }
         } else {
-            print("Error converting original trama ...");
+            receptor.printError();
             System.exit(1);
         }
         System.exit(0);
