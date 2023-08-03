@@ -13,8 +13,21 @@ public class Main {
                     receptor.printError();
                     break;
                 case 0:
-                    receptor.fixTrama();
                     receptor.printError();
+                    System.out.println("> Applying correction ...");
+                    if(receptor.fixTrama()) {
+                        System.out.println("> Converting trama again ...");
+                        switch(receptor.checkTrama()) {
+                            case 1:
+                                System.out.println("> Trama converted succesfully");
+                                break;
+                            default:
+                                receptor.printError();
+                                break;
+                        }
+                    } else {
+                        receptor.printError();
+                    }
                     break;
                 default:
                     System.out.println("> Trama converted succesfully");
