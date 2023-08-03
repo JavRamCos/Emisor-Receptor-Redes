@@ -20,7 +20,7 @@ public class Receptor {
         this.RECURSION_LIMIT = 100;
         this.err_msg = "";
         /* IEEE 802 CRC-32 */
-        this.poly = Arrays.asList(1, 0, 0, 0);
+        this.poly = Arrays.asList(1, 1, 0, 1, 1);
         /*this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 0,
                                     0, 1, 1, 0, 0, 0, 0, 0,
                                     1, 0, 0, 0, 1, 1, 1, 0,
@@ -96,7 +96,7 @@ public class Receptor {
         }
     }
 
-    public boolean fixTrama() {
+    public int fixTrama() {
         // HAMMING ALGORITHM
         int p = this.hammng.size(); // Exponent
         int n = p + new ArrayList<>(this.og_trama.subList(0, this.og_trama.size()-this.bit_len)).size(); // p + bits
@@ -117,10 +117,10 @@ public class Receptor {
             sums.set(i, counter % 2 == 0 ? 0 : 1);
         }
         int indx = 0;
-        for(int i = 0; i < sums.size(); i++) indx += sums.get(i) == 0 ? 0 : (int)Math.pow(2, i);
+        for(int i = 0; i < sums.size(); i++) indx += sums.get(i) == 0 ? 0 : (int)Math.pow(2, sums.size()-i-1);
         if (indx == 0) {
             this.err_msg = "Failed to find error bit index ...";
-            return false;
+            return 0;
         }
         System.out.println("> Error detected in position ("+indx+")");
         bits = new ArrayList<>(bits.subList(bits.size()-(indx+1), bits.size()-1));
@@ -134,7 +134,7 @@ public class Receptor {
         trama.set(trama.size()-(bits.size()-p), bits.get(0) == 0 ? 1 : 0);
         trama.addAll(this.og_trama.subList(this.og_trama.size()-this.bit_len, this.og_trama.size()));
         this.og_trama = trama;
-        return true;
+        return 1;
     }
 
     public List<List<Integer>> genTruthTable(int rows, int max) {
