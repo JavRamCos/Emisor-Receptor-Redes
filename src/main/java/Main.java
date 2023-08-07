@@ -6,7 +6,7 @@ public class Main {
             System.out.println("> No trama and/or parity was provided ...");
             System.exit(1);
         }
-        Receptor receptor = new Receptor(args[0], args[1]);
+        Receptor receptor = new Receptor(args[0]);
         int R_LIMIT = 100, counter = 0;
         if(receptor.convertInput()) {
             while(true) {
@@ -20,7 +20,7 @@ public class Main {
                     break;
                 }
                 System.out.println("> Applying correction ...");
-                int fix_result = receptor.fixTrama();
+                int fix_result = receptor.fixTrama(args[1]);
                 if(fix_result == 0) {
                     receptor.printError();
                     break;
