@@ -6,9 +6,9 @@ public class Main {
             System.out.println("> No trama and/or parity was provided ...");
             System.exit(1);
         }
-        Receptor receptor = new Receptor(args[0]);
+        Receptor receptor = new Receptor(true);
         int R_LIMIT = 100, counter = 0;
-        if(receptor.convertInput()) {
+        if(receptor.setTrama(args[0])) {
             while(true) {
                 if(counter >= R_LIMIT) break;
                 int check_result = receptor.checkTrama();

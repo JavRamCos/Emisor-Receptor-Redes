@@ -13,11 +13,10 @@ public class Receptor {
     public Receptor(boolean full_mode) {
         this.err_msg = "";
         /* IEEE 802 CRC-32 */
-        this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 1, 1);
-        /*this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 0,
+        this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 0,
                                     0, 1, 1, 0, 0, 0, 0, 0,
                                     1, 0, 0, 0, 1, 1, 1, 0,
-                                    1, 1, 0, 1, 1, 0, 1, 1, 1);*/
+                                    1, 1, 0, 1, 1, 0, 1, 1, 1);
         this.bit_len = this.poly.size()-1;
         this.full_mode = full_mode;
     }
@@ -161,10 +160,10 @@ public class Receptor {
 
     // Implementation of Hamming 7 4 Error Correction Algorithm for a MOD(7) list
     public int fixTrama() {
-        List<Integer> temp = new ArrayList<>();
+        List<Integer> temp;
         if(this.og_trama.size() % 7 != 0) {
             int spaces = ((int)Math.ceil((double)this.og_trama.size()/7)*7) - this.og_trama.size();
-            temp = Collections.nCopies(spaces, 0);
+            temp = new ArrayList<>(Collections.nCopies(spaces, 0));
             temp.addAll(this.og_trama);
             this.og_trama = temp;
         }
@@ -218,26 +217,25 @@ public class Receptor {
 
     // Function to convert a trama into a String
     public String binToString() {
-        List<Integer> temp = new ArrayList<>();
+        List<Integer> temp;
         if(this.og_trama.size() % 8 != 0) {
             int spaces = ((int)Math.ceil((double)this.og_trama.size()/8)) - this.og_trama.size();
-            temp = Collections.nCopies(spaces, 0);
+            temp = new ArrayList<>(Collections.nCopies(spaces, 0));
             temp.addAll(this.og_trama);
             this.og_trama = temp;
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int indx = 0, pad = 8;
         while(indx < this.og_trama.size()) {
-            temp.clear();
             temp = new ArrayList<>(this.og_trama.subList(indx, indx+pad));
-            String block = "";
+            StringBuilder block = new StringBuilder();
             for(int x = 0; x < 8; x++) {
-                block += temp.get(x);
+                block.append(temp.get(x));
             }
-            result += (char)Integer.parseInt(block, 2);
+            result.append((char) Integer.parseInt(block.toString(), 2));
             indx += pad;
         }
-        return result;
+        return result.toString();
     }
 
     // Show error produced during one of the validations
