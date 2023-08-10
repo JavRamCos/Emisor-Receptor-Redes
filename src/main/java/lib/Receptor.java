@@ -13,11 +13,12 @@ public class Receptor {
     public Receptor(boolean full_mode) {
         this.err_msg = "";
         /* IEEE 802 CRC-32 */
-        this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 0,
+        this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1);
+        /*this.poly = Arrays.asList(1, 0, 0, 0, 0, 0, 1, 0,
                                     0, 1, 1, 0, 0, 0, 0, 0,
                                     1, 0, 0, 0, 1, 1, 1, 0,
-                                    1, 1, 0, 1, 1, 0, 1, 1, 1);
-        this.bit_len = this.poly.size()-1;
+                                    1, 1, 0, 1, 1, 0, 1, 1, 1);*/
+        this.bit_len = this.poly.size() - 1;
         this.full_mode = full_mode;
     }
 
