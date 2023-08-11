@@ -53,8 +53,8 @@ public class Application {
             }
             socket.close();
             Instant end = Instant.now();
-            System.out.println("\n> Total answers: "+answers+"/"+num_messages+" ("+(double)(num_messages/answers)*100+"%)");
-            System.out.println("> Total time: "+ Duration.between(start, end).toSeconds()+" s");
+            System.out.println("\n> Total answers: "+answers+"/"+num_messages+" ("+((double)answers/(double)num_messages)*100+"%)");
+            System.out.println("> Total time: "+ Duration.between(start, end).toSeconds()+"."+Duration.between(start, end).toMillis() % 1000+" s");
         } catch (IOException ex) {
             System.out.println("> SERVER ERROR: " + ex.getMessage());
             ex.printStackTrace();
