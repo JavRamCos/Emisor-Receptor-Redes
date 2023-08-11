@@ -22,6 +22,12 @@ To obtain parity bits:
 python hammingEmisor.py
 ```
 
+To send *n* messages to a receptor:
+
+```
+python main.py
+```
+
 ### Receptor:
 
 Go to java dir
@@ -46,6 +52,12 @@ where:
 
 - *data*: Data bits with CRC applied
 - *parity*: Parity bits
+
+To receive *n* messages from an emisor:
+
+```
+java Application <n>
+```
 
 ## Authors
 
